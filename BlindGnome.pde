@@ -1,15 +1,5 @@
 class BlindGnome extends Gnome {
   
-
-  
-  BlindGnome() {
-    super();
-  }
-  
-  BlindGnome(int x, int y) {
-    super(x,y);
-  }
-  
   BlindGnome(ForestSpace s) {
     super(s);
   }
@@ -20,23 +10,15 @@ class BlindGnome extends Gnome {
     capacity = 250;
   }
   
-  void gnomeColour() {
-    red = int(random(100))+0;
-    updateAppearance();
-    blue = int(random(100))+60;
-  }
-  
   void updateAppearance() {
-    green = 20;
+    if(red==-1) red = int(random(200))+0;
     if(contents!=null) {
-      if(contents.type==MaterialType.FOOD) {
-        green+=contents.quantity;
-      }
+      if(contents.type==MaterialType.FOOD) green=contents.quantity;
     }
+    if(blue == -1) blue = int(random(160))+60;
   }
 
   void jiggle() {
-    if(position==null) gnomeList.remove(this);
     HashSet<ForestSpace> neighbours = forest.getNeighbours(position);
     HashSet<ForestSpace> open = new HashSet<ForestSpace>();
     for(ForestSpace neighbour : neighbours) {
@@ -48,10 +30,8 @@ class BlindGnome extends Gnome {
     int i = 0;
     int target = int(random(open.size()));
     for(ForestSpace neighbour : open) {
-      if(i==target && neighbour.occupant==null) {
-        position.occupant = null;
-        position = neighbour;
-        position.occupant = this;
+      if(i==target) {
+        moveTo(neighbour);
       }
       i++;
     }
