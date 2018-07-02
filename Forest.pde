@@ -2,12 +2,15 @@ import java.util.HashSet;
 
 class Forest {
 
-  private ForestSpace[][] spaces;
-  private int height;
-  private int width;
+  //  Going super object-oriented with the forest, and that means encapsulation.
+  //  This is partly necessary because calling the wrong index on an array crashes the program!
+  private final ForestSpace[][] spaces;
+  private final int height;  //  The highest array index will be height-1
+  private final int width;
   LinkedList<Gnome> gnomeList = new LinkedList<Gnome>();
   LinkedList<House> houseList = new LinkedList<House>();
-
+  //  There is one constructor, and it sets the dimensions.
+  //  All indices will be given a ForestSpace object.
   public Forest(int x, int y) {
     width = x;
     height = y;

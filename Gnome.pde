@@ -1,15 +1,19 @@
 abstract class Gnome extends Occupier {
 
-  int grabAmount;
+  final int grabAmount = 20;
 
   public Gnome(ForestSpace space) {
+    contents = new Material(MaterialType.FOOD,0);
+    capacity = 160;
     position = space;
-    if (spawn()) gnomeStats();
+    spawn();
   }
 
+  //  Gnomes do *something* every frame.
   abstract void jiggle();
-  abstract void gnomeStats();
-
+  
+  
+  //  Gnomes can pick materials up from the position they're standing in.
   final void grabContents() {
     if (position.contents==null) return;
     if (position.contents.quantity==0) {
